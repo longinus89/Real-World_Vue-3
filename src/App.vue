@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'EventList' }">Events</router-link> |
-      <router-link :to="{ name: 'About' }">About</router-link>
+      <router-link :to="{ name: 'event-list' }">Events</router-link> |
+      <router-link :to="{ name: 'event-create' }">Create</router-link> |
+      <router-link :to="{ name: 'about' }">About</router-link>
     </div>
-    <router-view />
+    <router-view :key="$route.fullPath"/>
   </div>
 </template>
 
@@ -32,5 +33,8 @@
 
 h4 {
   font-size: 20px;
+}
+.d-flex {
+  display: flex;
 }
 </style>
