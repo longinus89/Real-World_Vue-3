@@ -1,35 +1,17 @@
 <template>
   <form @submit.prevent="createEvent">
-    <label>Select a category</label>
-    <select v-model="event.category">
-      <option v-for="cat in categories" :key="cat">{{ cat }}</option>
-    </select>
+    <BaseSelect
+      v-model="event.category"
+      :options="categories"
+      label="Category"
+    />
     <h3>Name & describe your event</h3>
-    <div class="field">
-      <label>Title</label>
-      <input
-        v-model="event.title"
-        type="text"
-        placeholder="Add an event title"
-      />
-    </div>
-    <div class="field">
-      <label>Description</label>
-      <input
-        v-model="event.description"
-        type="text"
-        placeholder="Add a description"
-      />
-    </div>
+    <BaseInput v-model="event.title" label="Title" type="text" />
+    <BaseInput v-model="event.description" label="Description" type="text" />
+
     <h3>Where is your event?</h3>
-    <div class="field">
-      <label>Location</label>
-      <input
-        v-model="event.location"
-        type="text"
-        placeholder="Add a location"
-      />
-    </div>
+    <BaseInput v-model="event.location" label="Location" type="text" />
+
     <h3>When is your event?</h3>
     <div class="field" v-if="event.date !== undefined">
       <label>Date</label>
@@ -41,6 +23,29 @@
         <option v-for="time in times" :key="time">{{ time }}</option>
       </select>
     </div>
+
+    <h3>Are pets allowed?</h3>
+    <div>
+      <input type="radio" v-model="event.pets" :value="1" name="pets" />
+      <label>Yes</label>
+    </div>
+
+    <div>
+      <input type="radio" v-model="event.pets" :value="0" name="pets" />
+      <label>No</label>
+    </div>
+
+    <h3>Extras</h3>
+    <div>
+      <input type="checkbox" v-model="event.extras.catering" class="field" />
+      <label>Catering</label>
+    </div>
+
+    <div>
+      <input type="checkbox" v-model="event.extras.music" class="field" />
+      <label>Live music</label>
+    </div>
+
     <input type="submit" class="button -fill-gradient" value="Submit" />
   </form>
 </template>
@@ -48,9 +53,13 @@
 <script>
 import { mapState } from 'vuex'
 import Datepicker from 'vue3-datepicker'
+import BaseInput from '@/components/BaseInput'
+import BaseSelect from '@/components/BaseSelect'
 
 export default {
   components: {
+    BaseInput,
+    BaseSelect,
     Datepicker,
   },
   data() {
@@ -71,7 +80,7 @@ export default {
   methods: {
     createEvent() {
       this.$store
-        .dispatch('createEvent', this.event)
+        .dispatch('event/createEvent', this.event)
         .then(() => {
           this.event = this.createFreshEventObject()
         })
@@ -92,6 +101,11 @@ export default {
         date: new Date(),
         time: '',
         attendees: [],
+        pets: false,
+        extras: {
+          catering: false,
+          music: false,
+        },
       }
     },
   },
