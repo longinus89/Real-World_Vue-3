@@ -1,18 +1,20 @@
 
 import EventService from '@/services/EventService.js'
+import { eventPageSize } from '../constants'
 
-const eventPageSize = 1
 export default {
   namespaced: true,
   state: {
-    events: []
+    events: [],
+    tot: 0
   },
   mutations: {
     ADD_EVENT(state, event) {
       state.events.push(event)
     },
-    LOAD_EVENTS(state, events) {
+    LOAD_EVENTS(state, { events, tot }) {
       state.events = events
+      state.tot = tot
     },
   },
   actions: {
@@ -22,7 +24,7 @@ export default {
     },
     fetchEvents({ commit }, { pageNumber }) {
       EventService.getEvents(pageNumber, eventPageSize).then((response) =>
-        commit('LOAD_EVENTS', response.data))
+        commit('LOAD_EVENTS', { events: response.data, tot: response.headers['x-total-count'] }))
     }
   },
   getters: {
