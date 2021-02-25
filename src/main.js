@@ -2,8 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/store'
+import { registerComponents } from '@/plugins/register-components'
 
-createApp(App)
+const app = createApp(App)
   .use(store)
   .use(router)
-  .mount('#app')
+
+registerComponents(app)
+
+app.mount('#app')
