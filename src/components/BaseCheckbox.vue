@@ -1,12 +1,11 @@
 <template>
-  <label v-if="label">{{ label }}</label>
   <input
-    v-bind="$attrs"
-    :value="modelValue"
-    :placeholder="label"
     class="field"
-    @input="$emit('update:modelValue', $event.target.value)"
+    type="checkbox"
+    :checked="modelValue"
+    @change="$emit('update:modelValue', $event.target.checked)"
   />
+  <label v-if="label">{{ label }}</label>
 </template>
 
 <script>

@@ -1,23 +1,31 @@
 <template>
-  <h2 v-if="user?.user">Events for {{ user?.user.name }}</h2>
+  <h2 v-if="user?.user">
+    Events for {{ user?.user.name }}
+  </h2>
   <div class="events">
-    <EventCard v-for="event in event?.events" :key="event.id" :event="event" />
+    <EventCard
+      v-for="event in event?.events"
+      :key="event.id"
+      :event="event"
+    />
     <div class="pagination">
       <router-link
+        v-if="page != 1"
         id="page-prev"
         :to="{ name: 'event-list', query: { page: page - 1 } }"
         rel="prev"
-        v-if="page != 1"
-        >&#60; Previous</router-link
       >
+        &#60; Previous
+      </router-link>
 
       <router-link
+        v-if="hasNextPage"
         id="page-next"
         :to="{ name: 'event-list', query: { page: page + 1 } }"
         rel="next"
-        v-if="hasNextPage"
-        >Next &#62;</router-link
       >
+        Next &#62;
+      </router-link>
     </div>
   </div>
 </template>
@@ -31,25 +39,25 @@ import { watchEffect } from 'vue'
 export default {
   name: 'EventList',
   components: {
-    EventCard,
+    EventCard
   },
+  props: ['page'],
   data() {
     return {}
   },
-  props: ['page'],
   computed: {
     hasNextPage() {
-      var totalPages = Math.ceil(this.event.tot / eventPageSize)
+      const totalPages = Math.ceil(this.event.tot / eventPageSize)
       return this.page < totalPages
     },
-    ...mapState(['event', 'user']),
+    ...mapState(['event', 'user'])
   },
   created() {
     watchEffect(() => {
       this.events = null
       this.$store.dispatch('event/fetchEvents', { pageNumber: this.page })
     })
-  },
+  }
 }
 </script>
 

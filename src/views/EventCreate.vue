@@ -6,76 +6,104 @@
       label="Category"
     />
     <h3>Name & describe your event</h3>
-    <BaseInput v-model="event.title" label="Title" type="text" />
-    <BaseInput v-model="event.description" label="Description" type="text" />
+    <BaseInput
+      v-model="event.title"
+      label="Title"
+      type="text"
+    />
+    <BaseInput
+      v-model="event.description"
+      label="Description"
+      type="text"
+    />
 
     <h3>Where is your event?</h3>
-    <BaseInput v-model="event.location" label="Location" type="text" />
+    <BaseInput
+      v-model="event.location"
+      label="Location"
+      type="text"
+    />
 
     <h3>When is your event?</h3>
-    <div class="field" v-if="event.date !== undefined">
+    <div
+      v-if="event.date !== undefined"
+      class="field"
+    >
       <label>Date</label>
-      <datepicker v-model="event.date" placeholder="Select a date" />
+      <datepicker
+        v-model="event.date"
+        placeholder="Select a date"
+      />
     </div>
     <div class="field">
       <label>Select a time</label>
       <select v-model="event.time">
-        <option v-for="time in times" :key="time">{{ time }}</option>
+        <option
+          v-for="time in times"
+          :key="time"
+        >
+          {{ time }}
+        </option>
       </select>
     </div>
 
     <h3>Are pets allowed?</h3>
-    <div>
-      <input type="radio" v-model="event.pets" :value="1" name="pets" />
-      <label>Yes</label>
-    </div>
-
-    <div>
-      <input type="radio" v-model="event.pets" :value="0" name="pets" />
-      <label>No</label>
-    </div>
+    <BaseRadioGroup
+      v-model="event.pets"
+      name="pets"
+      :options="petOptions"
+      vertical
+    />
 
     <h3>Extras</h3>
     <div>
-      <input type="checkbox" v-model="event.extras.catering" class="field" />
-      <label>Catering</label>
+      <BaseCheckbox
+        v-model="event.extras.catering"
+        label="Catering"
+      />
     </div>
 
     <div>
-      <input type="checkbox" v-model="event.extras.music" class="field" />
-      <label>Live music</label>
+      <BaseCheckbox
+        v-model="event.extras.music"
+        label="Live music"
+      />
     </div>
 
-    <input type="submit" class="button -fill-gradient" value="Submit" />
+    <input
+      type="submit"
+      class="button -fill-gradient"
+      value="Submit"
+    />
   </form>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import Datepicker from 'vue3-datepicker'
-import BaseInput from '@/components/BaseInput'
-import BaseSelect from '@/components/BaseSelect'
 
 export default {
   components: {
-    BaseInput,
-    BaseSelect,
-    Datepicker,
+    Datepicker
   },
+  props: {},
   data() {
     const times = []
     for (let i = 1; i <= 24; i++) {
-      times.push(i + ':00')
+      times.push(`${i}:00`)
     }
     return {
       event: this.createFreshEvent(),
       times,
       categories: this.$store.state.categories,
+      petOptions: [
+        { label: 'Yes', value: true },
+        { label: 'No', value: false }
+      ]
     }
   },
-  props: {},
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user'])
   },
   methods: {
     createEvent() {
@@ -89,7 +117,7 @@ export default {
         })
     },
     createFreshEvent() {
-      const user = this.$store.state.user.user
+      const { user } = this.$store.state.user
       const id = Math.floor(Math.random() * 10000000)
       return {
         id,
@@ -104,11 +132,11 @@ export default {
         pets: false,
         extras: {
           catering: false,
-          music: false,
-        },
+          music: false
+        }
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

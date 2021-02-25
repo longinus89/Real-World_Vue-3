@@ -8,8 +8,14 @@
 
 <script>
 import EventService from '@/services/EventService.js'
+
 export default {
-  props: ['id'],
+  props: {
+    id: {
+      type: String,
+      default: ''
+    },
+  },
   data() {
     return {
       event: null
