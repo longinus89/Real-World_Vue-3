@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "core-js": "^3.9.0",
+    "gsap": "^3.6.0",
     "lodash": "^4.17.21",
+    "velocity-animate": "^1.5.2",
     "vue": "^3.0.6",
     "vue-router": "^4.0.4",
     "vue3-datepicker": "^0.2.4",

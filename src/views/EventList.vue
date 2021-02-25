@@ -1,31 +1,27 @@
 <template>
-  <h2 v-if="user?.user">
-    Events for {{ user?.user.name }}
-  </h2>
-  <div class="events">
-    <EventCard
-      v-for="event in event?.events"
-      :key="event.id"
-      :event="event"
-    />
-    <div class="pagination">
-      <router-link
-        v-if="page != 1"
-        id="page-prev"
-        :to="{ name: 'event-list', query: { page: page - 1 } }"
-        rel="prev"
-      >
-        &#60; Previous
-      </router-link>
+  <div>
+    <h2 v-if="user?.user">Events for {{ user?.user.name }}</h2>
+    <div class="events">
+      <EventCard v-for="event in event?.events" :key="event.id" :event="event" />
+      <div class="pagination">
+        <router-link
+          v-if="page != 1"
+          id="page-prev"
+          :to="{ name: 'event-list', query: { page: page - 1 } }"
+          rel="prev"
+        >
+          &#60; Previous
+        </router-link>
 
-      <router-link
-        v-if="hasNextPage"
-        id="page-next"
-        :to="{ name: 'event-list', query: { page: page + 1 } }"
-        rel="next"
-      >
-        Next &#62;
-      </router-link>
+        <router-link
+          v-if="hasNextPage"
+          id="page-next"
+          :to="{ name: 'event-list', query: { page: page + 1 } }"
+          rel="next"
+        >
+          Next &#62;
+        </router-link>
+      </div>
     </div>
   </div>
 </template>

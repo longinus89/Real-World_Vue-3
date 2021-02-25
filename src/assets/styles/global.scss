@@ -116,6 +116,16 @@ textarea {
   line-height: 1.15;
   margin: 0;
 }
+button {
+  background-color:lightgrey;
+  border: none;
+  color: white;
+  padding: 0.5rem 0.7rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
 button,
 input {
   overflow: visible;
@@ -303,4 +313,16 @@ select::ms-expand {
 }
 .button.-icon-center {
   padding: 0 20px;
+}
+.modal {
+  width: 250px;
+  height: 200px;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 20px;
+  border-radius: 2%;
+  background-color: #e0e0e0;
+}
+.flex {
+  display: flex;
 }

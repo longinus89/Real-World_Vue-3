@@ -8,6 +8,10 @@
       Events
     </router-link>
     |
+    <router-link :to="{ name: 'simple-list' }">
+      Simple list
+    </router-link>
+    |
     <router-link :to="{ name: 'event-create' }">
       Create
     </router-link>

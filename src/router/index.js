@@ -4,12 +4,18 @@ import EventDetails from '../views/EventDetails.vue'
 import EventCreate from '../views/EventCreate.vue'
 import About from '../views/About.vue'
 import Home from '../views/Home.vue'
+import SimpleList from '../views/SimpleList.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: Home
+  },
+  {
+    path: '/simple-list',
+    name: 'simple-list',
+    component: SimpleList
   },
   {
     path: '/events',
