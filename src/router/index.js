@@ -3,10 +3,16 @@ import EventList from '../views/EventList.vue'
 import EventDetails from '../views/EventDetails.vue'
 import EventCreate from '../views/EventCreate.vue'
 import About from '../views/About.vue'
+import Home from '../views/Home.vue'
 
 const routes = [
   {
     path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/events',
     name: 'event-list',
     component: EventList,
     props: route => ({ page: parseInt(route.query.page) || 1 })
